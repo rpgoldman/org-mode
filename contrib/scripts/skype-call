@@ -1,0 +1,8 @@
+#!/bin/sh
+
+command="CALL $1"
+
+osascript -e 'tell application "Skype"' \
+          -e "send command \"${command}\" script name \"skype-call\"" \
+          -e 'end tell'
+# osascript /Users/rpg/Library/scripts/skype-call.scpt $1

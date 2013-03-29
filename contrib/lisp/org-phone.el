@@ -3,6 +3,14 @@
 ;;; Add support for "phone:" links to phone numbers.
 ;;; Optional support for calling them with skype
 ;;;---------------------------------------------------------------------------
+
+;;; Copyright (C) 2013 Free Software Foundation, Inc.
+
+;; Author: Robert P. Goldman <rpgoldman at sift dot net>
+;; Homepage: http://orgmode.org
+;; Version: 0.01
+
+;; This file is not yet part of GNU Emacs.
 (require 'org)
 
 (org-add-link-type "phone" 'org-phone-open)

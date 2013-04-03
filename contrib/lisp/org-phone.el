@@ -8,7 +8,7 @@
 
 ;; Author: Robert P. Goldman <rpgoldman at sift dot net>
 ;; Homepage: http://orgmode.org
-;; Version: 0.01
+;; Version: 0.02
 
 ;; This file is not yet part of GNU Emacs.
 (require 'org)
@@ -17,12 +17,14 @@
 ;; not sure whether we need/want this yet...
 ;;(add-hook 'org-store-link-functions 'org-phone-store-link)
 
-(defcustom org-phone-function 'skype-call
-  "The Emacs function to be used to call a phone number."
+(defcustom org-phone-function 'org-phone-call
+  "The Emacs function to be used to call a phone number.
+By default, a simple function that uses shell-command to 
+apply org-phone-call-command (qv.) to the phone number."
   :group 'org-link
   :type 'symbol)
 
-(defcustom org-skype-command "skype-call"
+(defcustom org-phone-call-command "skype-call"
   "The executable command to be used to call a phone number.
 This should be a script that starts the call and returns: it
 should not block."
@@ -35,11 +37,18 @@ should not block."
 PHONE-NUMBER should be a string for a PSTN phone number."
   (funcall org-phone-function phone-number))
 
-(defun skype-call (phone-number)
+(defun org-phone-call (phone-number)
   (shell-command (format "%s %s"
-			 org-skype-command
+			 org-phone-call-command
 			 phone-number)))
   
+(defun trim-phone-number (phone-number)
+  "Remove whitespaces from a telephone number"
+  (mapconcat 'identity
+	     ;; the following in original code from Michael Strey.
+	     ;; not sure exactly what it's intended to do.
+	     ;;(delete "(0)"
+	     (split-string phone-number "[ /-]")) "")
   
 
 ;; (defun org-phone-store-link ()

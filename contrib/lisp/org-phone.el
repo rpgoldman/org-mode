@@ -43,12 +43,13 @@ PHONE-NUMBER should be a string for a PSTN phone number."
 			 phone-number)))
   
 (defun trim-phone-number (phone-number)
-  "Remove whitespaces from a telephone number"
+  "Remove whitespace, parentheses, and embedded (0) from a telephone
+ number"
   (mapconcat 'identity
-	     ;; the following in original code from Michael Strey.
-	     ;; not sure exactly what it's intended to do.
-	     ;;(delete "(0)"
-	     (split-string phone-number "[ /-]")) "")
+	     (split-string
+	      (mapconcat 'identity
+			 (split-string phonenumber "(0)") "")
+	      "[()/ -]") ""))
   
 
 ;; (defun org-phone-store-link ()
